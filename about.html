@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Font and Materialize CDN -->
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+
+	<!-- Local Style -->
+	<link rel="stylesheet" href="../css/style.css">
+
+	<!-- Metadata -->
+	<title>Football Score</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Football Score" />
+	<link rel="manifest" href="/manifest.json">
+	<meta name="theme-color" content="#16F5FA" />
+</head>
+
+<body>
+	<!-- Navigasi -->
+	<nav class="blue" role="navigation">
+		<div class="nav-wrapper container">
+			<a href="./" class="brand-logo" id="logo-container">Football Score</a>
+			<a href="index.html" class="sidenav-trigger">
+				<i class="material-icons">arrow_back</i>
+			</a>
+			<ul class="topnav right hide-on-med-and-down"></ul>
+		</div>
+	</nav>
+
+	<!-- Konten -->
+	<div class="container">
+		<div class="col s12 l4 center">
+			<div class="center">
+				<h2 id="title">List of Teams</h2>
+				<div id="detail"></div>
+			</div>
+
+			<div class="col s12 m4 center" id="loading">
+				<h4>Data is fetching...</h4>
+				<div class="preloader-wrapper active">
+					<div class="spinner-layer spinner-red">
+						<div class="circle-clipper left">
+							<div class="circle"></div>
+						</div>
+						<div class="gap-patch">
+							<div class="circle"></div>
+						</div>
+						<div class="circle-clipper right">
+							<div class="circle"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Modal Cache -->
+	<div id="modal" class="modal">
+		<div class="modal-content">
+			<h4>
+				<i class="material-icons">warning</i>
+				Attention
+			</h4>
+			<p>Information below is load from cache. If you want the newer information, please kindly click "Load from
+				server" instead "Cache is OK".</p>
+		</div>
+		<div class="modal-footer">
+			<a onclick="getCompetitionById(true)" class="modal-close waves-effect waves-blue btn-flat">Load from server</a>
+			<a class="modal-close waves-effect waves-blue btn blue">Cache is OK</a>
+		</div>
+	</div>
+
+	<!-- Modal Add -->
+	<div id="add" class="modal black bottom-sheet">
+		<div class="modal-header white-text" >
+			<p>
+				<i class="material-icons" id="checkLogo"  style="position: relative;">check</i>
+				Added Already
+				<button class="modal-close right waves-effect waves-blue btn white-text">OK</button>
+			</p>
+		</div>
+	</div>
+
+	<!-- Tombol Save -->
+	<div class="fixed-action-btn">
+		<a class="btn-floating btn-large red" id="save">
+			<i class="large material-icons">save</i>
+		</a>
+	</div>
+
+	<div class="bottom" id="below"></div>
+
+	<!-- Footer -->
+	<footer class="footer">
+		<div class="footer-copyright">
+			<div class="container center">
+				<h5>
+					© 2020 Copyright Josephine
+					<br>
+					Powered by
+					<a class="linkapi" href="https://api.football-data.org">https://api.football-data.org</a>
+				</h5>
+			</div>
+		</div>
+	</footer>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="node_modules/moment/moment.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/api.js"></script>
+	<script src="js/idb.js"></script>
+	<script src="js/db.js"></script>
+	<script>
+		let urlParams = new URLSearchParams(window.location.search);
+		let id = urlParams.get("id");
+		let btnSave = document.getElementById("save");
+		let stat = false;
+		
+		$(document).ready(()=>{
+			getCompetitionByIdDB(id)
+			.then((data)=>{
+				if(data!=undefined){
+					console.log(data)
+					stat = true;
+				}
+			})
+			.then(()=>{
+				// Jika sudah ada di DB maka button save hilang
+				if (stat==true) {
+					btnSave.style.display = 'none';
+					// ambil competition di DB lalu tampilkan
+					getSavedCompetitionById();
+				} else {
+					// ambil dari server
+					var item = getCompetitionById();
+				}
+				btnSave.onclick = function () {
+					item.then(function (competition) {
+						saveCompetition(competition);
+						getCompetitionByIdDB(id)
+							.then((data)=>{
+								if(data!=undefined){
+									btnSave.style.display = 'none';
+								}
+							});
+					});
+					$('#add').modal("open");
+				};
+
+			})
+
+			
+		})
+	</script>
+</body>
+
+</html>

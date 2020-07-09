@@ -1,0 +1,22 @@
+{
+    "name": "Football Score",
+	"gcm_sender_id": "495585133814",
+    "short_name": "Football Score",
+    "description": "Track Football Score from many competitions",
+    "start_url": "/index.html",
+    "display": "fullscreen",
+    "background_color": "#16F5FA",
+    "theme_color": "#16F5FA",
+    "icons": [
+        {
+            "src": "/img/192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/img/512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
