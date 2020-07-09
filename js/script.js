@@ -8,7 +8,7 @@ $(document).ready(function () {
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
         navigator.serviceWorker
-            .register(`football/service-worker.js`)
+            .register(`service-worker.js`)
             .then(function () {
                 console.log("Pendaftaran ServiceWorker berhasil");
             })
