@@ -1,0 +1,96 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat';
+    scroll-behavior: smooth;
+}
+
+main {
+    margin: 32px auto;
+    flex: 1 0 auto;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+a#logo-container{
+    font-size: 4vh;
+}
+
+.paragraph {
+    text-indent: 40px;
+}
+
+.justify {
+    text-align: justify;
+}
+
+.footer {
+    padding: 20px;
+    background-color: #2196F3 !important;
+    color: #fff !important;
+}
+
+.linkapi:link{
+    color: #fff;
+}
+
+.linkapi:visited{
+    color: blueviolet;
+}
+
+.linkapi:hover{
+    color: hotpink;
+}
+
+.linkapi:active{
+    color: indianred;
+}
+
+.background {
+    background-image: url("https://d18lkz4dllo6v2.cloudfront.net/cumulus_uploads/entry/2020-04-06/COVID%20.jpg?w=660");
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.row .col.l3 {
+    width: 33%;
+}
+
+@media only screen and (max-width: 600px) {
+    .row .col.l3 {
+        width: 100%;
+    }
+}
+
+.bottom{
+    margin-bottom: 10%;
+}
+
+a#competitionName{
+    color: white;
+}
+
+a#competitionName:hover{
+    color: gray;
+}
+
+a#winner{
+    color: #dcdc19d6;
+}
+	
+th{
+    border-radius:0px;
+}
+
+#add{
+    -webkit-padding-start: 0px;
+}
+#checkLogo{
+    vertical-align: middle;
+}
